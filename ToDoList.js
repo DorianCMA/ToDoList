@@ -6,20 +6,21 @@ let li = document.getElementById("li")
 let tareas = []
 
 formulario.addEventListener("submit",(e)=>{
-e.preventDefault()
- 
-const nuevaTarea = document.getElementById("nuevaTarea").value
-
- if(!nuevaTarea.trim()){
-  header.textContent="formulario vacio"
-
-  setTimeout(()=>{
-    header.textContent=""
-  }, 2000)
+  e.preventDefault()
+  
+  let nuevaTarea = document.getElementById("nuevaTarea").value
+  
+  
+  if(!nuevaTarea.trim()){
+    header.textContent="formulario vacio"
+    
+    setTimeout(()=>{
+      header.textContent=""
+    }, 2000)
     return
- }
-
-//  objeto
+  }
+  
+  //  objeto
 
 const objTarea ={
   id: Date.now(),
@@ -29,13 +30,17 @@ const objTarea ={
 }
 tareas = [...tareas,objTarea]
 
-mostrarHTML()
+
+
+mostrarHTML();
+
 })
 
 
 
 const mostrarHTML= () =>{
-
+  
+  nuevaTarea.value ="" 
   li.innerHTML= ""
 
   if(tareas.length === 0){
@@ -47,16 +52,14 @@ const mostrarHTML= () =>{
 
   tareas.forEach((item)=>{
     itemTareas = document.createElement("div")
-    itemTareas.classList.add("flex")
-    itemTareas.classList.add("justify-between")
-    itemTareas.classList.add("mt-5")
-    itemTareas.classList.add("mb-5")
+    itemTareas.classList.add("flex","justify-between","mt-5","mb-5")
+   
     itemTareas.innerHTML= `
    
     <div>
 
     ${item.estado ? 
-      `<p class="text-black ml-5 " id="parrafo">${item.tarea}</p>`
+      `<p class=" text-green-600 ml-5 " id="parrafo">${item.tarea}</p>`
       : 
       `<p class="text-white ml-5 " id="parrafo">${item.tarea}</p>`
     }
@@ -65,11 +68,13 @@ const mostrarHTML= () =>{
               </div>
               <div class="flex gap-5 mr-5">
   
-              <button  data-id="${item.id}" class="eliminar p-[10px] bg-white"><i class="fa-solid fa-trash"></i></button>
-              <button  data-id="${item.id}" class="completada p-[10px] bg-white"><i class="fa-solid fa-check"></i></button>
+              <button  data-id="${item.id}" class="eliminar  rounded p-[10px] text-[#ccc] hover:bg-[#ccc] hover:text-black ">❌</i></button>
+              <button  data-id="${item.id}" class="completada rounded p-[10px] text-[#ccc] hover:bg-[#ccc] hover:text-black">✔</i></button>
             </div>
     `
+    
     li.appendChild(itemTareas)
+   
   })
 }
 
